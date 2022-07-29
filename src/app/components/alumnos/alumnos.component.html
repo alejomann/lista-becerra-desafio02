@@ -1,0 +1,31 @@
+<header>
+    <h1>Lista de alumnos</h1>
+    <p>{{ ahora | date:'dd/MM/yyy' }} - {{ ahora | date:'hh:mm:ss' }}</p>
+</header>
+
+<ul>
+    <li class="encabezadoLista">
+        <div class="col1">Nombre</div>
+        <div class="col2">Nacionalidad</div>
+        <div class="col3">Asistencias</div>
+        <div class="col4">Promedio</div>
+    </li>
+
+    <ng-component *ngFor="let alumno of alumnos">
+        <li>
+            <div class="col1">{{ alumno.nombre | uppercase }} {{alumno.apellido | uppercase }}</div>
+            <div class="col2">{{ alumno.nacionalidad }}</div>
+            <div class="col3">
+                <ng-component *ngFor="let asistencia of alumno.asistencias">
+                    <b>{{ asistencia.clase1 + asistencia.clase2 + asistencia.clase3 + asistencia.clase4 +asistencia.clase5 + asistencia.clase6 + asistencia.clase7 + asistencia.clase8 + asistencia.clase9 + asistencia.clase10 }}</b> / {{ totalClases }}
+                </ng-component>
+            </div>
+            <div class="col4">
+                <figure *ngFor="let prom of alumno.promedio">
+                    <b [ngClass]="((prom.nota1+prom.nota2+prom.nota3+prom.nota4)/totalTareas)>=7 ? 'aprobado' : 'desaprobado' ">{{ (prom.nota1 + prom.nota2 + prom.nota3 + prom.nota4) / totalTareas }}</b>
+                </figure>
+            </div>
+        </li>
+    </ng-component>
+
+</ul>
